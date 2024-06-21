@@ -13,14 +13,34 @@ end_actor_num = 25 # to Actor_24
 
 # Load detector
 logging.info("Loading py-feat detector")
-detector = Detector(device="cuda")
+face_model = 'img2pose'
+landmark_model='mobilenet' 
+facepose_model='img2pose-c'
+detector = Detector(face_model=face_model, 
+                    landmark_model=landmark_model, 
+                    au_model='xgb', 
+                    emotion_model='resmasknet', 
+                    facepose_model=facepose_model,
+                    identity_model='facenet', 
+                    device='cuda', 
+                    n_jobs=1, 
+                    verbose=False,
+                    )
 logging.info("py-feat detector loaded")
 
 def process_video(video_path, csv_path):
     try:
         # logging.info(f"Running detection for file {video_path}")
         print(f"Running detection for file {video_path}")
-        video_prediction = detector.detect_video(video_path)
+        video_prediction = detector.detect_video(video_path, 
+                                                skip_frames=None, 
+                                                output_size=(720, 1280), 
+                                                batch_size=5, 
+                                                num_workers=0, 
+                                                pin_memory=False, 
+                                                face_detection_threshold=0.9, 
+                                                face_identity_threshold=0.8
+                                                )
         video_prediction.to_csv(csv_path)
         logging.info(f"Output saved to {csv_path}")
     except Exception as e:
