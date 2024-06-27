@@ -2,7 +2,7 @@ import os
 import glob
 
 # Define the path to the main directory
-RAVDESS_path = "F:/RAVDESS/"
+RAVDESS_path = "F:/RAVDESS_song/"
 
 # Loop through each actor directory
 for i in range(1, 25):
