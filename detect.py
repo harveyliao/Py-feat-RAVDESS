@@ -10,6 +10,7 @@ RAVDESS_path = "F:/RAVDESS/" # RAVDESS video path
 tracked_path = "F:/tracked/" # result CSV path
 start_actor_num = 1 # from Actor_01
 end_actor_num = 25 # to Actor_24
+isSong = False # RAVDESS song skip Actor 18
 
 # Load detector
 logging.info("Loading py-feat detector")
@@ -48,6 +49,9 @@ def process_video(video_path, csv_path):
 
 # Main processing loop
 for i in range(start_actor_num, end_actor_num):
+    # Skip Actor 18 for RAVDESS song
+    if i == 18 and isSong:
+        continue
     # Format the folder name with leading zeros
     folder_name = f"Actor_{i:02}" 
     # Set the video input folder path and CSV output folder path
