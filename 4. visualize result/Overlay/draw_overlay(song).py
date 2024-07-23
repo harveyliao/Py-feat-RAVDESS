@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 from multiprocessing import Pool, cpu_count
 
 # Setup logging
-logging.basicConfig(filename='drawing_overlay(song).log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+logging.basicConfig(filename='draw_overlay(song).log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 # Configuration
 csv_path = "F:/smoothed_song/"
-video_path = "F:/video/overlay_song/"
+video_path = "F:/video/Overlay_song/"
 start_actor_num = 1
 end_actor_num = 25
 isSong = True
