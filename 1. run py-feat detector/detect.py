@@ -46,7 +46,7 @@ def save_feat_prediction_to_csv(feat_prediction, csv_path):
     """save feat prediction to csv files, with logging
     
     Arguments:
-    :param feat_prediction: py-feat prediction dataframe to be saved
+    :param feat_prediction: A py-feat prediction dataframe to be saved
     :param csv_path:        location where the result is saved, this path should include .csv extension
     
     """
