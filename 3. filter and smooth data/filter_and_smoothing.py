@@ -7,6 +7,8 @@ from feat.utils.io import read_feat # load data from csv to FEX
 from scipy.signal import butter, filtfilt # lowpass butterworth filter
 from scipy.signal import savgol_filter # Savitzky-Golay filter
 
+from multiprocessing import Pool
+
 # Setup logging
 logging.basicConfig(filename='filter_and_smooth_data.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
@@ -16,6 +18,7 @@ smoothed_path = "F:/smoothed/" # result CSV path
 start_actor_num = 1 # from Actor_01
 end_actor_num = 25 # to Actor_24
 isSong = False # To skip Actor 18 in RAVDESS song
+num_processes = 10 # adjust this according to host machine performance
 
 # columns to be filtered
 columns_to_filter = [
@@ -72,19 +75,27 @@ def apply_savgol(column, window_length, poly_order):
 
 
 
-def filter_and_smooth(raw_csv_path, smoothed_csv_path):
+def filter_and_smooth(args):
     """Filter and smooth the raw csv by lowpass filter and Savitzky-Golay filter, then
     saved the smoothed result to csv 
 
     Arguments:
-    :param raw_csv_path:        location of the raw CSV of feat dataframe, including .csv extension
-    :param smoothed_csv_path:   location where the smoothed result is saved to, including .csv extension
+    :param args: A tuple containing two variables: 
+        - raw_csv_path:        location of the raw CSV of feat dataframe, including .csv extension
+        - smoothed_csv_path:   location where the smoothed result is saved to, including .csv extension
     
     """
+    raw_csv_path, smoothed_csv_path = args
+    
+    # if the target file exists, then skip it since it has been processed. Othrewise proceed
+    if os.path.exists(smoothed_csv_path):
+        logging.info(f"File {smoothed_csv_path} already processed, skipping.")
+        return
+
     # load raw CSV to py-feat FEX
     input_prediction = read_feat(raw_csv_path)
     # logging.info(f"Running detection for file {video_path}")
-    print(f"Running smoothing for file {raw_csv_path}")
+    logging.info(f"Running smoothing for file {raw_csv_path}")
 
     df_smooth = input_prediction.copy()
 
@@ -109,6 +120,8 @@ def filter_and_smooth(raw_csv_path, smoothed_csv_path):
 
 
 def main():
+    tasks = [] # multiprocessing pool
+
     for i in range(start_actor_num, end_actor_num):
         # Skip Actor 18 for RAVDESS song
         if i == 18 and isSong:
@@ -135,10 +148,10 @@ def main():
             
             # if the smoothed CSV file does not exists, then filter and smooth the raw CSV
             # otherwise skip this file since it has been processed
-            if not os.path.exists(smoothed_csv_path):
-                filter_and_smooth(raw_csv_path, smoothed_csv_path)
-            else:
-                logging.info(f"File {smoothed_csv_path} already processed, skipping.")
+            tasks.append((raw_csv_path, smoothed_csv_path))
+    
+    with Pool(processes=num_processes) as pool:
+        pool.map(filter_and_smooth, tasks)
 
 if __name__ == '__main__':
     main()
