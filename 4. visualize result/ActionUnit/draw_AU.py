@@ -66,6 +66,7 @@ def generate_au_video_from_csv(args):
     """
     smoothed_csv_path, au_video_path = args
 
+    # if the target file exists, then skip it since it has been processed. Othrewise proceed
     if os.path.exists(au_video_path):
         logging.info(f"File {au_video_path} already processed, skipping.")
         return

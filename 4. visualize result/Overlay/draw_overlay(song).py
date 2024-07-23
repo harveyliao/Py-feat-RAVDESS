@@ -35,6 +35,7 @@ def generate_overlay_video_from_csv(args):
     """
     smoothed_csv_path, overlay_video_path = args
     
+    # if the target file exists, then skip it since it has been processed. Othrewise proceed
     if os.path.exists(overlay_video_path):
         logging.info(f"File {overlay_video_path} already processed, skipping.")
         return
