@@ -57,6 +57,13 @@ def generate_au_plot_figures(input_prediction):
     return (figs, error_frames)
 
 def generate_au_video_from_csv(args):
+    """Generate an Action Unit (AU) video from a CSV feat dataframe.
+
+    :param args: A tuple containing two variables: 
+        - smoothed_csv_path: path of the smoothed CSV file
+        - au_video_path: path where the AU video is saved to
+
+    """
     smoothed_csv_path, au_video_path = args
 
     if os.path.exists(au_video_path):
