@@ -6,6 +6,8 @@ RAVDESS_path = "F:/RAVDESS_song/"
 
 # Loop through each actor directory
 for i in range(1, 25):
+    if i == 18:
+        continue
     # Format the folder name with leading zeros
     folder_name = f"Actor_{i:02}"
     full_path = os.path.join(RAVDESS_path, folder_name)
