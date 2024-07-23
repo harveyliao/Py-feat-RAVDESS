@@ -3,10 +3,11 @@ import glob
 
 # Define the path to the main directory
 RAVDESS_path = "F:/RAVDESS_song/"
+isSong = True
 
 # Loop through each actor directory
 for i in range(1, 25):
-    if i == 18:
+    if i == 18 and isSong:
         continue
     # Format the folder name with leading zeros
     folder_name = f"Actor_{i:02}"
