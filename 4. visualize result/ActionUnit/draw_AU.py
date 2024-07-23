@@ -56,18 +56,18 @@ def generate_au_plot_figures(input_prediction):
 
     return (figs, error_frames)
 
-def process_video(args):
-    smoothed_csv_path, overlay_video_path = args
+def generate_au_video_from_csv(args):
+    smoothed_csv_path, au_video_path = args
 
-    if os.path.exists(overlay_video_path):
-        logging.info(f"File {overlay_video_path} already processed, skipping.")
+    if os.path.exists(au_video_path):
+        logging.info(f"File {au_video_path} already processed, skipping.")
         return
 
     video_prediction = read_feat(smoothed_csv_path)
     logging.info(f"Successfully loaded file: {smoothed_csv_path}, now generating overlay for each frame")
     
     figs, _ = generate_au_plot_figures(video_prediction)
-    writer = imageio.get_writer(overlay_video_path, fps=30, codec='libx264', format='FFMPEG', macro_block_size=None)
+    writer = imageio.get_writer(au_video_path, fps=30, codec='libx264', format='FFMPEG', macro_block_size=None)
 
     logging.info("generating video from frames")
     for fig in figs:
@@ -80,7 +80,7 @@ def process_video(args):
         plt.close(fig)
 
     writer.close()
-    logging.info(f'Video saved as {overlay_video_path}')
+    logging.info(f'Video saved as {au_video_path}')
 
 def main():
     tasks = [] # multiprocessing pool
@@ -90,21 +90,21 @@ def main():
             continue
         folder_name = f"Actor_{i:02}" 
         smoothed_csv_folder_path = os.path.join(csv_path, folder_name)
-        overlay_video_folder_path = os.path.join(video_path, folder_name)
+        au_video_folder_path = os.path.join(video_path, folder_name)
 
-        if not os.path.exists(overlay_video_folder_path):
-            os.makedirs(overlay_video_folder_path)
-            logging.info(f"Created folder {overlay_video_folder_path}")
+        if not os.path.exists(au_video_folder_path):
+            os.makedirs(au_video_folder_path)
+            logging.info(f"Created folder {au_video_folder_path}")
         
         for file_name in os.listdir(smoothed_csv_folder_path):
             smoothed_csv_path = os.path.join(smoothed_csv_folder_path, file_name)
             video_basename = os.path.splitext(os.path.basename(smoothed_csv_path))[0]
-            overlay_video_path = os.path.join(overlay_video_folder_path, f"{video_basename}.mp4")
+            au_video_path = os.path.join(au_video_folder_path, f"{video_basename}.mp4")
             
-            tasks.append((smoothed_csv_path, overlay_video_path))
+            tasks.append((smoothed_csv_path, au_video_path))
 
     with Pool(processes=num_processes) as pool:
-        pool.map(process_video, tasks)
+        pool.map(generate_au_video_from_csv, tasks)
 
 if __name__ == '__main__':
     main()
