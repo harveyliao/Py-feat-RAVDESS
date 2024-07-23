@@ -25,11 +25,11 @@ DPI = 100
 def generate_landmark_video_from_csv(args):
     """Generate an landmark video from a CSV feat dataframe.
 
-    Landmark video includes landmarks, facebox, and head pose 
+    Landmark video includes landmarks, facebox, and head pose. Eliminating translational motion
 
     :param args: A tuple containing two elements: 
         - smoothed_csv_path: path of the smoothed CSV file
-        - au_video_path: path where the AU video is saved to
+        - landmark_video_path: path where the AU video is saved to
 
     """
     smoothed_csv_path, landmark_video_path = args
@@ -67,7 +67,7 @@ def generate_landmark_video_from_csv(args):
     logging.info(f'Video saved as {landmark_video_path}')
 
 def main():
-    tasks = []
+    tasks = [] # multiprocessing pool
 
     for i in range(start_actor_num, end_actor_num):
         if i == 18 and isSong:
