@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 from multiprocessing import Pool, cpu_count
 
 # Setup logging
-logging.basicConfig(filename='drawing_landmark_song(multiprocessing).log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+logging.basicConfig(filename='drawing_landmark(song).log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 # Configuration
 csv_path = "F:/smoothed_song/"
