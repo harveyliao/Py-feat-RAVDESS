@@ -125,21 +125,21 @@ def filter_tasks(tasks: list, is_speech_and_song: bool, is_song: bool) -> list:
         """Extract and return the actor identifier from the RAVDESS filename."""
         return int(filename.split('-')[-1])
 
-    results = []
-    for task in tasks:
+    def should_include_task(task, is_speech_and_song, is_song) -> bool:
+        """checks if a task should be included based on conditions"""
         video_basename = task[3]
         actor_id = get_actor(video_basename)
         
-        if is_speech_and_song: # case 1
-            if not (actor_id == 18 and is_song_coding(video_basename)):
-                results.append(task[:3])
-        elif not is_speech_and_song and not is_song: # case 2
-            if is_speech_coding(video_basename):
-                results.append(task[:3])
-        elif not is_speech_and_song and is_song: # case 3
-            if actor_id != 18 and is_song_coding(video_basename):
-                results.append(task[:3])
+        if is_speech_and_song:
+            return not (actor_id == 18 and is_song_coding(video_basename))
+        elif not is_speech_and_song and not is_song:
+            return is_speech_coding(video_basename)
+        elif not is_speech_and_song and is_song:
+            return actor_id != 18 and is_song_coding(video_basename)
+        return False
 
+    results = [task[:3] for task in tasks if should_include_task(task, is_speech_and_song, is_song)]
+    
     return results
 
 def main():
