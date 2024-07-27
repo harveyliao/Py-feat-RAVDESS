@@ -104,17 +104,6 @@ def is_speech_coding(coding_str: str) -> bool:
     """
     return coding_str.split('-')[1] == '01'
 
-
-def get_actor(coding_str: str) -> int:
-    """return the RAVDESS 'Actor' identifier in integer
-    
-    Argument:
-    :param coding_str: factor-level coding of RAVDESS filename, e.g. 01-01-03-02-02-01-09
-    """
-    identifiers = coding_str.split('-')
-    return int(identifiers[6])
-
-
 def filter_tasks(tasks: list, is_speech_and_song: bool, is_song: bool) -> list:
     """Filter the pending tasks list based on two booleans, returning the list of filtered tasks.
     
