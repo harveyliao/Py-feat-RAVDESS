@@ -13,7 +13,7 @@ logging.basicConfig(filename='draw_overlay(song).log', level=logging.INFO, forma
 
 # Configuration
 csv_path = "F:/smoothed_song/"
-video_path = "F:/video/Overlay_song/"
+video_path = "F:/smoothed_video/Overlay_song/"
 start_actor_num = 1
 end_actor_num = 25
 isSong = True

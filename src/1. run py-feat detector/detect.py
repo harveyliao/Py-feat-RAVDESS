@@ -7,7 +7,7 @@ logging.basicConfig(filename='run_detector.log', level=logging.INFO, format='%(a
 
 # Configuration
 RAVDESS_path = "F:/RAVDESS/" # RAVDESS video path
-tracked_path = "F:/tracked/" # result CSV path
+tracked_path = "F:/raw_motion_speech/" # result CSV path
 start_actor_num = 1 # from Actor_01
 end_actor_num = 25 # to Actor_24
 isSong = False # RAVDESS song skip Actor 18

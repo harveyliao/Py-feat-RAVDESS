@@ -14,7 +14,7 @@ logging.basicConfig(filename='filter_and_smooth_data(song).log', level=logging.I
 
 # Configuration
 tracked_path = "F:/tracked_song/" # RAVDESS video path
-smoothed_path = "F:/smoothed_song/" # result CSV path
+smoothed_path = "F:/smoothed_motion_song/" # result CSV path
 start_actor_num = 1 # from Actor_01
 end_actor_num = 25 # to Actor_24
 isSong = True # To skip Actor 18 in RAVDESS song

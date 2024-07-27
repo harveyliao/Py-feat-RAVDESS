@@ -15,7 +15,7 @@ logging.basicConfig(filename='draw_au(song).log', level=logging.INFO, format='%(
 
 # Configuration
 csv_path = "F:/smoothed_song/"
-video_path = "F:/video/ActionUnit_song/"
+video_path = "F:/smoothed_video/ActionUnit_song/"
 start_actor_num = 1
 end_actor_num = 25
 isSong = True
