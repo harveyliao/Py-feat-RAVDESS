@@ -1,4 +1,4 @@
-import pandas as df
+import pandas as pd
 import os
 from feat.utils.io import read_feat
 
@@ -8,7 +8,7 @@ start_actor_num = 1
 end_actor_num = 25
 isSong = False
 
-def has_null_values(df):
+def has_null_values(df: pd.DataFrame) -> bool:
   """Checks if a DataFrame contains any null values.
 
   Args:
