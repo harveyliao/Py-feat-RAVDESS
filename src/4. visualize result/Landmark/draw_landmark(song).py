@@ -13,7 +13,7 @@ logging.basicConfig(filename='draw_landmark(song).log', level=logging.INFO, form
 
 # Configuration
 csv_path = "F:/smoothed_song/"
-video_path = "F:/video/Landmark_song/"
+video_path = "F:/smoothed_video/Landmark_song/"
 start_actor_num = 1
 end_actor_num = 25
 isSong = True
