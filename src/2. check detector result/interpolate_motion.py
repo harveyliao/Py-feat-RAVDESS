@@ -72,9 +72,10 @@ def main():
     # Flatten the list of lists
     csv_contain_null = [item for sublist in results for item in sublist]
 
-    print(f"There were {len(csv_contain_null)} files containing null: ", end='')
-    print(csv_contain_null)
+    print(f"There were {len(csv_contain_null)} files containing null", end='')
     if csv_contain_null:
+        print(": ", end='')
+        print(csv_contain_null)
         print("ffill() have been successfully applied to those files.")
 
 if __name__ == '__main__':
