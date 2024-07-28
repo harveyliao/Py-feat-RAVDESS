@@ -12,13 +12,11 @@ from multiprocessing import Pool, cpu_count
 logging.basicConfig(filename='draw_overlay.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 # Configuration
-csv_path = "F:/smoothed/"
+csv_path = "F:/smoothed_motion/"
 video_path = "F:/smoothed_video/Overlay/"
 start_actor_num = 1
 end_actor_num = 25
-isSong = False
 num_processes = 8
-
 # Overlay video settings
 VIDEO_WIDTH, VIDEO_HEIGHT = 1280, 720
 DPI = 100
@@ -73,8 +71,6 @@ def main():
     tasks = [] # multiprocessing pool
 
     for i in range(start_actor_num, end_actor_num):
-        if i == 18 and isSong:
-            continue
         folder_name = f"Actor_{i:02}" 
         smoothed_csv_folder_path = os.path.join(csv_path, folder_name)
         overlay_video_folder_path = os.path.join(video_path, folder_name)
