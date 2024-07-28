@@ -13,11 +13,10 @@ from multiprocessing import Pool
 logging.basicConfig(filename='filter_and_smooth_data.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 # Configuration
-tracked_path = "F:/tracked/" # RAVDESS video path
-smoothed_path = "F:/smoothed_motion_speech/" # result CSV path
+tracked_path = "F:/raw_motion/" # raw CSV path
+smoothed_path = "F:/smoothed_motion/" # result CSV path
 start_actor_num = 1 # from Actor_01
 end_actor_num = 25 # to Actor_24
-isSong = False # To skip Actor 18 in RAVDESS song
 num_processes = 10 # adjust this according to host machine performance
 
 # columns to be filtered
@@ -123,9 +122,6 @@ def main():
     tasks = [] # multiprocessing pool
 
     for i in range(start_actor_num, end_actor_num):
-        # Skip Actor 18 for RAVDESS song
-        if i == 18 and isSong:
-            continue
         # Format the folder name with leading zeros
         folder_name = f"Actor_{i:02}" 
         # Set the raw CSV folder path and smoothed CSV output folder path
