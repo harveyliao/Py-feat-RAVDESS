@@ -39,7 +39,7 @@ def generate_landmark_video_from_csv(args):
         return
 
     video_prediction = read_feat(smoothed_csv_path)
-    logging.info(f"generating overlay for each frame, file: {smoothed_csv_path}")
+    logging.info(f"plotting landmark for each frame, file: {smoothed_csv_path}")
     
     figs = video_prediction.plot_detections(faces='landmarks', 
                                             faceboxes=True, 
