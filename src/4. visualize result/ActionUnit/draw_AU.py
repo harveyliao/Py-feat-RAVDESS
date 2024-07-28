@@ -8,17 +8,16 @@ from feat.plotting import plot_face
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from multiprocessing import Pool
+from multiprocessing import Pool, cpu_count
 
 # Setup logging
 logging.basicConfig(filename='draw_au.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 # Configuration
-csv_path = "F:/smoothed/"
+csv_path = "F:/smoothed_motion/"
 video_path = "F:/smoothed_video/ActionUnit/"
 start_actor_num = 1
 end_actor_num = 25
-isSong = False
 num_processes = 10 # adjust this according to host machine performance
 
 # Overlay video settings
@@ -94,8 +93,6 @@ def main():
     tasks = [] # multiprocessing pool
 
     for i in range(start_actor_num, end_actor_num):
-        if i == 18 and isSong:
-            continue
         folder_name = f"Actor_{i:02}" 
         smoothed_csv_folder_path = os.path.join(csv_path, folder_name)
         au_video_folder_path = os.path.join(video_path, folder_name)
@@ -110,6 +107,9 @@ def main():
             au_video_path = os.path.join(au_video_folder_path, f"{video_basename}.mp4")
             
             tasks.append((smoothed_csv_path, au_video_path))
+
+    # Use all available CPU cores, or slightly fewer to leave some resources for the system
+    # num_processes = max(1, cpu_count() - 2)
 
     with Pool(processes=num_processes) as pool:
         pool.map(generate_au_video_from_csv, tasks)
