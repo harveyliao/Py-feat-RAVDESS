@@ -12,11 +12,10 @@ from multiprocessing import Pool, cpu_count
 logging.basicConfig(filename='draw_landmark.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 # Configuration
-csv_path = "F:/smoothed/"
+csv_path = "F:/smoothed_motion/"
 video_path = "F:/smoothed_video/Landmark/"
 start_actor_num = 1
 end_actor_num = 25
-isSong = False
 num_processes = 10
 
 # Overlay video settings
@@ -71,8 +70,6 @@ def main():
     tasks = [] # multiprocessing pool
 
     for i in range(start_actor_num, end_actor_num):
-        if i == 18 and isSong:
-            continue
         folder_name = f"Actor_{i:02}" 
         smoothed_csv_folder_path = os.path.join(csv_path, folder_name)
         landmark_video_folder_path = os.path.join(video_path, folder_name)
@@ -88,6 +85,9 @@ def main():
             
             tasks.append((smoothed_csv_path, landmark_video_path))
     
+    # Use all available CPU cores, or slightly fewer to leave some resources for the system
+    # num_processes = max(1, cpu_count() - 2)
+
     with Pool(processes=num_processes) as pool:
         pool.map(generate_landmark_video_from_csv, tasks)
 
