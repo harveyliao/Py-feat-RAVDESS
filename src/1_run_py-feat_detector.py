@@ -11,7 +11,7 @@ end_actor_num = 25 # to Actor_24
 print("Select configuration to run:")
 print("1. Speech only")
 print("2. Song only")
-print("3. Speech and Song (default)")
+print("3. All (default)")
 choice = input("Enter the number of your choice: ")
 
 if choice == "1":
@@ -23,7 +23,7 @@ elif choice == "2":
     is_song = True  # RAVDESS song skip Actor 18
     is_speech_and_song = False
 else:
-    logging_filename = 'run_detector(speech_and_song).log'
+    logging_filename = 'run_detector(all).log'
     is_speech_and_song = True
     is_song = False
 
@@ -108,7 +108,7 @@ def filter_tasks(tasks: list, is_speech_and_song: bool, is_song: bool) -> list:
     """Filter the pending tasks list based on two booleans, returning the list of filtered tasks.
     
     There are three cases based on the combination of the two boolean parameters:
-    1. Speech and Song: is_speech_and_song = True, is_song = Any
+    1. All: is_speech_and_song = True, is_song = Any
        - Includes both speech and song tasks, skips Actor 18 in Song.
     2. Speech Only: is_speech_and_song = False, is_song = False
        - Includes only speech tasks.
@@ -130,11 +130,11 @@ def filter_tasks(tasks: list, is_speech_and_song: bool, is_song: bool) -> list:
         video_basename = task[3]
         actor_id = get_actor(video_basename)
         
-        if is_speech_and_song:
+        if is_speech_and_song: # case 1
             return not (actor_id == 18 and is_song_coding(video_basename))
-        elif not is_speech_and_song and not is_song:
+        elif not is_speech_and_song and not is_song: # case 2
             return is_speech_coding(video_basename)
-        elif not is_speech_and_song and is_song:
+        elif not is_speech_and_song and is_song: # case 3
             return actor_id != 18 and is_song_coding(video_basename)
         return False
 
