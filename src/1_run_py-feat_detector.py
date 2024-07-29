@@ -153,7 +153,7 @@ def main():
                         emotion_model='resmasknet', 
                         facepose_model=facepose_model,
                         identity_model='facenet', 
-                        device='cpu', 
+                        device='cuda', 
                         n_jobs=1, 
                         verbose=False,
                         )
