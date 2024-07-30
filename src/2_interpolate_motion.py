@@ -10,7 +10,7 @@ start_actor_num = 1
 end_actor_num = 25
 
 # Setup logging
-logging.basicConfig(filename="chech_null_csv.log", level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
+logging.basicConfig(filename="chech_null_and_interpolate.log", level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
 
 class FillNaNError(Exception):
     """Custom exception raised when ffill() fails to remove all null values in a DataFrame."""
