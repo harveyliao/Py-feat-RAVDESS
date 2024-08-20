@@ -114,7 +114,7 @@ def filter_and_smooth(args):
         apply_savgol, args=(window_length, poly_order)
         )
 
-    df_smooth.to_csv(smoothed_csv_path)
+    df_smooth.to_csv(smoothed_csv_path, index=False)
     logging.info(f"Output saved to {smoothed_csv_path}")
 
 
