@@ -15,7 +15,7 @@ logging.basicConfig(filename='draw_au.log', level=logging.INFO, format='%(asctim
 
 # Configuration
 csv_path = "F:/smoothed_motion/"
-video_path = "F:/smoothed_video/ActionUnit/"
+video_path = "F:/smoothed_video/ActionUnit_Activation/"
 start_actor_num = 1
 end_actor_num = 25
 num_processes = 10 # adjust this according to host machine performance
